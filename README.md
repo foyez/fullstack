@@ -93,3 +93,22 @@ Ping and Traceroute both uses ICMP (Internet Control Message Protocol) requests.
 - **Hop**: A hop is a computer networking term that refers to the number of routers that a packet (a portion of data) passes through from its source to its destination.
 
 - **Packet**: Packet is a little bit of information you can transmit.
+
+## VIM (Vi Improved)
+
+> Vim is a programmer's text editor.
+
+#### VIM modes
+
+- insert mode: text editing (`i`)
+- command mode: primary mode (`ESC`)
+- last line mode: searching, saving, exiting (`:`)
+
+#### Commands
+
+- Open/Create a file using vim: `vi test.txt`
+- Quit vim without saving changes: `:q!`
+- Quit vim with saving changes: `:wq`
+
+- [Vi Commands Cheat Sheet](https://linuxmoz.com/vi-commands-cheat-sheet/)
+- [Vim Copy, cut and paste](https://vim.fandom.com/wiki/Copy,_cut_and_paste)
