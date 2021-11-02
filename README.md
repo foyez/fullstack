@@ -15,8 +15,8 @@
 - **less** - show file contents by page
 - **rm** - remove file
 - **echo** - repeat input
-- **cp** - copy files and directories
-- **mv** - move (rename) files
+- **cp** - copy files and directories (c.g. `cp file.txt folder`)
+- **mv** - move (rename) files (e.g. `mv file1.txt file2.txt folder`)
 
 #### Shells - allow to run command lines
 
@@ -102,7 +102,8 @@ Ping and Traceroute both uses ICMP (Internet Control Message Protocol) requests.
 
 - insert mode: text editing (`i`)
 - command mode: primary mode (`ESC`)
-- last line mode: searching, saving, exiting (`:`)
+- last line/command mode: searching, saving, exiting (`:`)
+- visual mode: select texts (`v`)
 
 #### Commands
 
@@ -110,5 +111,49 @@ Ping and Traceroute both uses ICMP (Internet Control Message Protocol) requests.
 - Quit vim without saving changes: `:q!`
 - Quit vim with saving changes: `:wq`
 
+Resources
+
 - [Vi Commands Cheat Sheet](https://linuxmoz.com/vi-commands-cheat-sheet/)
 - [Vim Copy, cut and paste](https://vim.fandom.com/wiki/Copy,_cut_and_paste)
+
+## Server
+
+A server is a computer or system that provides resources, data, services, or programs to other computers, known as clients, over a network. In theory, whenever computers share resources with client machines they are considered servers. This means that a device could be both a server and a client at the same time.
+
+Simple server with node.js
+
+```js
+const http = require("http");
+const PORT = 8080;
+
+http
+  .createServer((req, res) => {
+    res.write("Hello, World!");
+    res.end();
+  })
+  .listen(PORT);
+
+console.log(`Server started! Listening on port ${PORT}`);
+```
+
+> Generally ports below 1000 are reserved.
+
+The internet runs over port 80 on HTTP server and port 443 on HTTPS server.
+
+Usually 127.0.0.1 is a loopback command. That means instead of going out to the internet and hitting a server on port 8080, it hits the localhost running on port 8080.
+
+#### Data Centers
+
+Servers generally live in a place called data centers. It's the collection of the stack of servers.
+
+#### The Cloud
+
+Cloud computing is the on-demand availability of computer system resources, especially data storage (cloud storage) and computing power, without direct active management by the user. Large clouds often have functions distributed over multiple locations, each location being a data center
+
+#### VPS (Virtual Private Server)
+
+A virtual private server (VPS) is a virtual machine sold as a service by an Internet hosting service.
+
+#### Elastic Computing or Cloud Elasticity
+
+Elastic computing is the ability to quickly expand or decrease computer processing, memory and storage resources to meet changing demands without worrying about capacity planning and engineering for peak usage.
