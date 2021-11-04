@@ -8,15 +8,50 @@
 - **ls** - list directory contents
 - **pwd** - print working directory
 - **mkdir** - make directory
+
+```bash
+> mkdir test foo # make two directories called test and foo
+> mkdir -p ~/test # make a test directory if it doesn't exists
+```
+
 - **rmdir** - remove directory
 
 - **cat** - show file contents
+
+```bash
+> cat info.txt
+> cat ~/.config
+```
+
 - **man** - command manual
 - **less** - show file contents by page
 - **rm** - remove file
 - **echo** - repeat input
 - **cp** - copy files and directories (c.g. `cp file.txt folder`)
 - **mv** - move (rename) files (e.g. `mv file1.txt file2.txt folder`)
+- **grep** - searches text and strings in a given file or searches the given file for lines containing a match to the given strings or words
+
+```bash
+> grep 'word' filename
+
+> fgrep 'word-to-search' file.txt
+
+> grep 'word' file1 file2 file3
+
+> grep 'string1 string2'  filename
+
+> cat otherfile | grep 'something'
+
+> command | grep 'something' # ls | grep README.md
+
+> command option1 | grep 'data'
+
+> grep --color 'data' fileName
+
+> grep [-options] pattern filename
+
+> fgrep [-options] words file
+```
 
 #### Shells - allow to run command lines
 
@@ -148,12 +183,61 @@ Servers generally live in a place called data centers. It's the collection of th
 
 #### The Cloud
 
-Cloud computing is the on-demand availability of computer system resources, especially data storage (cloud storage) and computing power, without direct active management by the user. Large clouds often have functions distributed over multiple locations, each location being a data center
+Cloud computing is the on-demand availability of computer system resources, especially data storage (cloud storage) and computing power, without direct active management by the user. Large clouds often have functions distributed over multiple locations, each location being a data center.
+
+#### Elastic Computing or Cloud Elasticity
+
+Elastic computing is the ability to quickly expand or decrease computer processing, memory and storage resources to meet changing demands without worrying about capacity planning and engineering for peak usage.
 
 #### VPS (Virtual Private Server)
 
 A virtual private server (VPS) is a virtual machine sold as a service by an Internet hosting service.
 
-#### Elastic Computing or Cloud Elasticity
+## Operating Systems (OS)
 
-Elastic computing is the ability to quickly expand or decrease computer processing, memory and storage resources to meet changing demands without worrying about capacity planning and engineering for peak usage.
+An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. Operating systems are found on many devices that contain a computer – from cellular phones and video game consoles to web servers and supercomputers.
+
+#### Two main types of server operating systems
+
+```
+1. windows
+2. unix ->
+i. BSD -> freeBSD -> OSX/MacOS
+ii. linux (ubuntu, debian, red hat)
+iii. solaris
+```
+
+## SSH (Secure Shell or Secure Socket Shell)
+
+Secure Shell is a cryptographic network protocol for operating network services securely over an unsecured network. Typical applications include remote command-line, login, and remote command execution, but any network service can be secured with SSH.
+
+SSH provides a secure channel over an unsecured network by using a client–server architecture, connecting an SSH client application with an SSH server. The protocol specification distinguishes between two major versions, referred to as SSH-1 and SSH-2.
+
+```
+# Key pair
+
+my computer    --------------->   server
+(private key)  encrypted message  (public key)
+(secrete)      <---------------
+```
+
+A **public key** that is copied to the SSH server(s). Anyone with a copy of the public key can encrypt data which can then only be read by the person who holds the corresponding **private key**. Once an SSH server receives a public key from a user and considers the key trustworthy.
+
+Encryption Method - Asymmetric Cryptography (Algorithms)
+
+Create a ssh key:
+
+```bash
+> cd ~/.ssh
+> ssh-keygen # generate ssh key
+```
+
+#### Connecting to the server
+
+```bash
+# username by default is root
+> ssh username@SERVER_IP
+
+# first time connecting to the server
+> ssh -i keyName username@SERVER_IP # ssh -i fsbc root@165.22.140.238
+```
