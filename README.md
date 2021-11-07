@@ -4,6 +4,9 @@
 
 ## Command Line
 
+<details>
+<summary>View contents</summary>
+
 - **cd** - change directory
 - **ls** - list directory contents
 - **pwd** - print working directory
@@ -71,7 +74,12 @@ SHELL --> TERMINAL --> KERNEL
 
 Kernel is the core of the operating system. It talks to the actual machine layer.
 
+</details>
+
 ## How does the internet work?
+
+<details>
+<summary>View contents</summary>
 
 - **Internet (International Network)** - A system of globally interconnected devices
 - **Intranet (Internal Restricted Access Network)** - Private internet, e.g., vpn
@@ -129,7 +137,12 @@ Ping and Traceroute both uses ICMP (Internet Control Message Protocol) requests.
 
 - **Packet**: Packet is a little bit of information you can transmit.
 
+</details>
+
 ## VIM (Vi Improved)
+
+<details>
+<summary>View contents</summary>
 
 > Vim is a programmer's text editor.
 
@@ -151,7 +164,12 @@ Resources
 - [Vi Commands Cheat Sheet](https://linuxmoz.com/vi-commands-cheat-sheet/)
 - [Vim Copy, cut and paste](https://vim.fandom.com/wiki/Copy,_cut_and_paste)
 
+</details>
+
 ## Server
+
+<details>
+<summary>View contents</summary>
 
 A server is a computer or system that provides resources, data, services, or programs to other computers, known as clients, over a network. In theory, whenever computers share resources with client machines they are considered servers. This means that a device could be both a server and a client at the same time.
 
@@ -193,7 +211,12 @@ Elastic computing is the ability to quickly expand or decrease computer processi
 
 A virtual private server (VPS) is a virtual machine sold as a service by an Internet hosting service.
 
+</details>
+
 ## Operating Systems (OS)
+
+<details>
+<summary>View contents</summary>
 
 An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. Operating systems are found on many devices that contain a computer – from cellular phones and video game consoles to web servers and supercomputers.
 
@@ -207,7 +230,12 @@ ii. linux (ubuntu, debian, red hat)
 iii. solaris
 ```
 
+</details>
+
 ## SSH (Secure Shell or Secure Socket Shell)
+
+<details>
+<summary>View contents</summary>
 
 Secure Shell is a cryptographic network protocol for operating network services securely over an unsecured network. Typical applications include remote command-line, login, and remote command execution, but any network service can be secured with SSH.
 
@@ -241,3 +269,5 @@ Create a ssh key:
 # first time connecting to the server
 > ssh -i keyName username@SERVER_IP # ssh -i fsbc root@165.22.140.238
 ```
+
+</details>
