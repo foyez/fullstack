@@ -56,7 +56,7 @@
 > fgrep [-options] words file
 ```
 
-#### Shells - allow to run command lines
+### Shells - allow to run command lines
 
 Example: bash, zsh, fish, etc.
 
@@ -64,11 +64,11 @@ Example: bash, zsh, fish, etc.
 > echo $0 # show current shell
 ```
 
-#### Terminal - runs shell applications
+### Terminal - runs shell applications
 
 Example: iTerm2, hyper, Powershell, etc.
 
-```
+```txt
 SHELL --> TERMINAL --> KERNEL
 ```
 
@@ -89,7 +89,7 @@ Kernel is the core of the operating system. It talks to the actual machine layer
 - **IP (Internet Protocol)** - a set of rules. For example, how to accept (read, write or send back) a well form data
 - **IP Address** - A label assigned to an internet connected device
 
-```
+```txt
 IPv4 - 8.8.8.8 (4.3 billion addresses 4.3 * 10^9)
 IPv6 - 2001:4860:4860:8888 (340 undecillion addresses 3.4 * 10^38)
 ```
@@ -111,7 +111,7 @@ The Domain Name System (DNS) is the phonebook of the Internet. Humans access inf
 
 Each device connected to the Internet has a unique IP address which other machines use to find the device. DNS servers eliminate the need for humans to memorize IP addresses such as 192.168.1.1 (in IPv4), or more complex newer alphanumeric IP addresses such as 2400:cb00:2048:1::c629:d7a2 (in IPv6).
 
-```
+```txt
 domain: foyez.com
 subdomain: blog.foyez.com
 tld: com
@@ -146,14 +146,14 @@ Ping and Traceroute both uses ICMP (Internet Control Message Protocol) requests.
 
 > Vim is a programmer's text editor.
 
-#### VIM modes
+### VIM modes
 
 - insert mode: text editing (`i`)
 - command mode: primary mode (`ESC`)
 - last line/command mode: searching, saving, exiting (`:`)
 - visual mode: select texts (`v`)
 
-#### Commands
+### Commands
 
 - Open/Create a file using vim: `vi test.txt`
 - Quit vim without saving changes: `:q!`
@@ -195,19 +195,19 @@ The internet runs over port 80 on HTTP server and port 443 on HTTPS server.
 
 Usually 127.0.0.1 is a loopback command. That means instead of going out to the internet and hitting a server on port 8080, it hits the localhost running on port 8080.
 
-#### Data Centers
+### Data Centers
 
 Servers generally live in a place called data centers. It's the collection of the stack of servers.
 
-#### The Cloud
+### The Cloud
 
 Cloud computing is the on-demand availability of computer system resources, especially data storage (cloud storage) and computing power, without direct active management by the user. Large clouds often have functions distributed over multiple locations, each location being a data center.
 
-#### Elastic Computing or Cloud Elasticity
+### Elastic Computing or Cloud Elasticity
 
 Elastic computing is the ability to quickly expand or decrease computer processing, memory and storage resources to meet changing demands without worrying about capacity planning and engineering for peak usage.
 
-#### VPS (Virtual Private Server)
+### VPS (Virtual Private Server)
 
 A virtual private server (VPS) is a virtual machine sold as a service by an Internet hosting service.
 
@@ -220,9 +220,9 @@ A virtual private server (VPS) is a virtual machine sold as a service by an Inte
 
 An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. Operating systems are found on many devices that contain a computer – from cellular phones and video game consoles to web servers and supercomputers.
 
-#### Two main types of server operating systems
+### Two main types of server operating systems
 
-```
+```txt
 1. windows
 2. unix ->
 i. BSD -> freeBSD -> OSX/MacOS
@@ -237,11 +237,16 @@ iii. solaris
 <details>
 <summary>View contents</summary>
 
+- HTTP (Hypertext Transfer Protocol): It allows to send files over the internet like HTML, CSS and Javascript files between browsers and servers.
+- FTP (File Transfer Protocol): It allows to send computer files from a server to a client on a computer network.
+- HTTPS: It is similar to HTTP but it transfers encrypted files.
+- IMAP: It allows to send e-mails.
+
 Secure Shell is a cryptographic network protocol for operating network services securely over an unsecured network. Typical applications include remote command-line, login, and remote command execution, but any network service can be secured with SSH.
 
 SSH provides a secure channel over an unsecured network by using a client–server architecture, connecting an SSH client application with an SSH server. The protocol specification distinguishes between two major versions, referred to as SSH-1 and SSH-2.
 
-```
+```txt
 # Key pair
 
 my computer    --------------->   server
@@ -251,7 +256,11 @@ my computer    --------------->   server
 
 A **public key** that is copied to the SSH server(s). Anyone with a copy of the public key can encrypt data which can then only be read by the person who holds the corresponding **private key**. Once an SSH server receives a public key from a user and considers the key trustworthy.
 
-Encryption Method - Asymmetric Cryptography (Algorithms)
+Encryption Methods:
+
+- Symmetrical Encryption
+- Asymmetrical Encryption
+- Hashing
 
 Create a ssh key:
 
@@ -260,25 +269,41 @@ Create a ssh key:
 > ssh-keygen # generate ssh key
 ```
 
-#### Connecting to the server
+### HTTPS vs SSH
+
+SSH and HTTPS are both protocols for securely transmitting data over the internet, but they serve different purposes and operate at different levels of the networking stack.
+
+SSH (Secure Shell) is a protocol for establishing a secure, encrypted connection between two computers. It is primarily used for remote access and command-line management of servers and other computing systems. SSH provides a secure channel over an unsecured network, such as the internet, allowing users to securely log in to remote systems, execute commands, and transfer files.
+
+HTTPS (Hypertext Transfer Protocol Secure) is a protocol for securely transmitting data over the World Wide Web. It is used to encrypt data exchanged between a web server and a client, such as a web browser. HTTPS is designed to protect sensitive information, such as login credentials, credit card details, and other personal information, from being intercepted and viewed by unauthorized parties.
+
+The main difference between SSH and HTTPS is their intended use and the type of data they protect. SSH is used for secure remote access to computing systems, while HTTPS is used for secure web browsing and transmitting sensitive data over the internet. Additionally, SSH operates at the transport layer of the networking stack, while HTTPS operates at the application layer.
+
+Overall, both SSH and HTTPS are important protocols for securing data transmitted over the internet and protecting against unauthorized access and interception.
+
+- [source](https://www.quora.com/What-is-the-difference-between-SSH-and-HTTPS)
+
+### Connecting to the server
 
 ```bash
 # username by default is root
-> ssh username@SERVER_IP
+# ssh {user}@{host}
+# host -> IP Address or Domain Name
+ssh root@SERVER_IP
 
 # first time connecting to the server
-> ssh -i keyName username@SERVER_IP # ssh -i fsbc root@165.22.140.238
+ssh -i keyName root@SERVER_IP # ssh -i fsbc root@165.22.140.238
+
+# Generate public/private rsa key pair
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+# Enter: /Users/{username}/.ssh/id_rsa_{keyName}
+
+# Copy public key
+pbcopy < ~/.ssh/id_rsa_github.pub
+# To connect with server paste the public key, e.g. github
+
+# Add identity
+ssh-add ~/.ssh/id_rsa_github
 ```
-
-</details>
-
-## Roadmap
-
-<details>
-<summary>View contents</summary>
-
-### REST API
-
-- [What is REST API?](https://youtu.be/lsMQRaeKNDk)
 
 </details>
