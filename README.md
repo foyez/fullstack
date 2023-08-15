@@ -153,11 +153,48 @@ Ping and Traceroute both uses ICMP (Internet Control Message Protocol) requests.
 - last line/command mode: searching, saving, exiting (`:`)
 - visual mode: select texts (`v`)
 
-### Commands
+### Command Mode
+
+- This is the **default** mode
+- Editing the text is not possible
+- Navigate, Search, Delete, Undo etc.
+
+### Insert Mode
+
+- Allows to enter text
+
+### Common Commands
 
 - Open/Create a file using vim: `vi test.txt`
 - Quit vim without saving changes: `:q!`
 - Quit vim with saving changes: `:wq`
+- `dd` - Delete a line
+- `d10d` - Delete 10 lines
+- `u` - Undo
+- `CTRL + r` - Redo
+- `$` - Jump to end of the line
+- `A` - Jump to end of the line and switch to insert mode
+- `0` - Jump to start of the line
+- `I` - Jump to start of the line and switch to insert mode
+- `10G` - Go to line 10
+
+### Search Commands
+
+- `/pattern` - Search for pattern
+- `n` - Jump to next match
+- `N` - Search in opposite direction
+
+### Replace Commands
+
+- `:%s/old/new` - Replace old with new throughout the file
+- `:%s/old/new/g`
+- `:6,10s/old/new/g`
+
+```
+% => run this command on all lines.
+6,10 => run this command on line 6 and 10
+g => match multiple occurences in the same line.
+```
 
 Resources
 
