@@ -139,6 +139,105 @@ Ping and Traceroute both uses ICMP (Internet Control Message Protocol) requests.
 
 </details>
 
+## Networking <sup>[ref](https://www.youtube.com/playlist?list=PLIhvC56v63IKrRHh3gvZZBAGvsvOhwrRF)</sup>
+
+<details>
+<summary>View contents</summary>
+
+# IP Addresses — QuickRecall Notes (from the video)
+
+> Short, skimmable notes so you can *glance* and remember the core concepts.
+
+---
+
+## What an IP address *is*
+
+* Like a phone number for devices on a network — lets devices talk.
+* Every device that wants to talk on a network or the internet needs one (phone, watch, smart bulb, etc.).
+* IP addresses come in **IPv4** format here: `A.B.C.D` (four octets, each 0–255).
+
+---
+
+## How devices get an IP
+
+* **DHCP** (think: *Oprah of IPs*): the router automatically hands out IP addresses to devices on the network.
+* You can also set static IPs manually (not covered in detail here).
+
+---
+
+## The three important values you’ll see on your device
+
+* **IP Address** — the device’s address (e.g. `192.168.1.12`)
+* **Subnet Mask / Netmask** — tells you which part of the IP is the *network* and which is the *host* (e.g. `255.255.255.0`)
+* **Default Gateway** — the router that takes traffic off your local network (often `192.168.1.1`)
+
+Commands:
+
+* Windows: `ipconfig`
+* Linux/macOS: `ifconfig` (or `ip addr` on modern Linux)
+* Phone: Settings → Wi-Fi → network details
+
+---
+
+## Network vs Host portion (the core idea)
+
+* Subnet mask determines which octets are **locked** (network) and which can **change** (host).
+* **Hack:** If an octet in the subnet mask is `255`, the corresponding octet in the IP is fixed for the whole network.
+
+  * Example: `255.255.255.0` ⇒ first three octets (`A.B.C`) are network, last (`D`) is host.
+  * So `192.168.1.X` — the `192.168.1` is the network; `X` is the host number.
+
+Analogy:
+
+* Network portion = **street name** (e.g., Private Drive)
+* Host portion = **house number** (e.g., `4`, `5`, `6`)
+* If two devices share the same street (network), they can directly hand the packet to each other. If not, they call the **router** (default gateway / UPS).
+
+---
+
+## Reserved addresses in a network
+
+For a typical `/24` (mask `255.255.255.0`), IPs run `X.X.X.0` → `X.X.X.255`:
+
+* **Network address** = `.0` (first address) — *not assignable to hosts*
+* **Broadcast address** = `.255` (last address) — *used to send to everyone*
+* **Router / default gateway** commonly uses one host IP (e.g. `.1`) — typically taken
+
+### Counting usable addresses (how many devices you can assign)
+
+* Total addresses = `2^(number of host bits)`
+
+  * For `/24` there are 8 host bits ⇒ `2^8 = 256` addresses
+* Usually subtract 2 for network & broadcast:
+
+  * Usable = `256 - 2 = 254`
+* If the router uses one IP (commonly), that still counts as one of the usable addresses, leaving `253` *other* devices you can assign addresses to.
+
+---
+
+## Quick examples / cheats
+
+* Subnet mask `255.255.255.0` = `/24` = 256 total addresses (`.0` → `.255`)
+
+  * Network address: `192.168.1.0`
+  * First usable often: `192.168.1.1` (commonly the router)
+  * Last usable: `192.168.1.254`
+  * Broadcast: `192.168.1.255`
+* If mask were `255.255.255.128` = `/25`:
+
+  * Host bits = 7 → `2^7 = 128` addresses per subnet (useable 126 normally)
+
+---
+
+## Mnemonics & small reminders
+
+* **Oprah = DHCP** (gives out IPs: “You get an IP! You get an IP!”)
+* **255 means locked** — that octet won’t change across that network.
+* **Network = street; Host = house number** — if same street, hand it over; if not, call the router.
+* **Always subtract 2** for network & broadcast when counting usable addresses; subtract any additional reserved IPs (like a router) only if you’re counting *free* remaining addresses.
+
+</details>
+
 ## VIM (Vi Improved)
 
 <details>
