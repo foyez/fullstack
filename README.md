@@ -144,12 +144,6 @@ Ping and Traceroute both uses ICMP (Internet Control Message Protocol) requests.
 <details>
 <summary>View contents</summary>
 
-# IP Addresses — QuickRecall Notes (from the video)
-
-> Short, skimmable notes so you can *glance* and remember the core concepts.
-
----
-
 ## What an IP address *is*
 
 * Like a phone number for devices on a network — lets devices talk.
