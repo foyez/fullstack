@@ -718,6 +718,230 @@ Binary:
 
 ---
 
+# 🧠 Subnet Mask
+
+*(Why 255 freezes the network portion, how binary reveals network + host bits, and how host count is calculated)*
+
+---
+
+# 🌐 1. What a Subnet Mask Actually *Does*
+
+A subnet mask tells you:
+
+* **Which part of the IP address is the network portion**
+* **Which part is the host portion**
+* **How big the network is**
+* **How many IP addresses are available**
+* It does this using **binary patterns of 1s (network bits) and 0s (host bits)**
+
+Every IP address *must* have a subnet mask.
+
+---
+
+# #️⃣ 2. Why 255 Means “Frozen / Cannot Change”
+
+Subnet masks are numbers like:
+
+```
+255.255.255.0
+```
+
+### Why does **255** mean “this octet cannot change”?
+
+Because **255 in binary = 11111111**
+All bits are **1** → those are **network bits** → fixed, unchangeable.
+
+### Why does **0** mean “this octet *can* change”?
+
+Because **0 in binary = 00000000**
+All bits are **0** → host bits → available to number individual hosts.
+
+---
+
+# 🔢 3. Converting Subnet Mask to Binary
+
+Example: `255` → binary
+Subtract powers of two:
+
+* 255 − 128 → 127
+* 127 − 64 → 63
+* 63 − 32 → 31
+* 31 − 16 → 15
+* 15 − 8 → 7
+* 7 − 4 → 3
+* 3 − 2 → 1
+* 1 − 1 → 0
+
+Result:
+`11111111`
+
+So the subnet mask:
+
+```
+255.255.255.0
+```
+
+Binary:
+
+```
+11111111.11111111.11111111.00000000
+```
+
+---
+
+# 🧩 4. What the 1s and 0s *Mean*
+
+Binary subnet mask:
+
+* **1s = Network bits**
+  → identify *which network* the IP belongs to
+  → network portion cannot change
+
+* **0s = Host bits**
+  → identify *individual devices*
+  → host portion can change
+
+Example:
+
+```
+11111111.11111111.11111111.00000000
+Network | Network | Network | Host
+```
+
+Means:
+
+* First 3 octets = *network* (won’t change)
+* Last octet = *hosts* (can vary)
+
+---
+
+# 🧮 5. Counting Hosts Using Binary
+
+Host count depends on how many **0s** are in the binary subnet mask.
+
+### Formula:
+
+```
+Hosts = 2^(number of host bits) - 2
+```
+
+Subtract 2 for:
+
+* Network address
+* Broadcast address
+
+---
+
+# 📌 Example: 255.255.255.0 (a /24)
+
+Binary:
+`11111111.11111111.11111111.00000000`
+
+Zeros = 8 → host bits = 8
+
+```
+2^8 = 256
+256 - 2 = 254 usable hosts
+```
+
+This matches what we know: **/24 → 254 hosts**
+
+---
+
+# 🔧 6. Increasing Hosts by “Stealing” Bits
+
+If you need more than 254 hosts (e.g., you want 500), you must:
+
+✔ Add more **zeros** (host bits)
+✔ Remove some **ones** (network bits)
+
+Example change:
+
+Original (binary):
+
+```
+11111111.11111111.11111111.00000000
+```
+
+Change last network bit to 0:
+
+```
+11111111.11111111.11111110.00000000
+```
+
+Zeros = now **9** (instead of 8)
+
+```
+2^9 = 512 addresses
+512 - 2 = 510 usable hosts
+```
+
+---
+
+# 🔄 7. Converting the Modified Subnet Mask Back to Decimal
+
+Binary for the third octet:
+
+`11111110`
+
+Add its powers of two:
+
+```
+128 + 64 + 32 + 16 + 8 + 4 + 2 = 254
+```
+
+So the new mask becomes:
+
+```
+255.255.254.0
+```
+
+This subnet mask supports:
+
+* **510 usable hosts**
+* **512 total addresses**
+
+You just performed *real subnetting*.
+
+---
+
+# 🔐 8. Rule of Subnet Masks: **They Are Always Contiguous**
+
+Subnet mask binary must always be:
+
+* All 1s in a row
+* Followed by all 0s in a row
+* Never mixed
+
+Valid:
+
+```
+11111111 11111111 11110000 00000000
+```
+
+Invalid:
+
+```
+11111111 11110111 00000000 00000000
+      wrong →      ↑ hole inside the 1s
+```
+
+This ensures masks are readable and compatible with routing.
+
+---
+
+# 🧠 9. What We Learned (Short Flash Summary)
+
+* `255` = `11111111` → all network bits
+* `0`   = `00000000` → all host bits
+* Host count = `2^(# of zeros) - 2`
+* More zeros = more hosts
+* More ones = more networks
+* Changing the subnet mask **is** subnetting
+* Subnet masks must be contiguous
+
+---
+
 </details>
 
 ## VIM (Vi Improved)
