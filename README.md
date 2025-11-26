@@ -942,6 +942,341 @@ This ensures masks are readable and compatible with routing.
 
 ---
 
+
+# 🧠 Subnetting a Network
+
+### “Breaking One Network into Four Using Subnetting”
+
+---
+
+# 🌐 1. Why We Subnet
+
+Your home network has one big subnet — insecure + messy.
+Goal: **split it into 4 isolated networks** (IoT, Wireless, DMZ, Users).
+
+Instead of using multiple routers, VLANs, or lazy default network additions,
+**we subnet the existing network into smaller networks**.
+
+Subnetting lets you:
+
+* Increase security
+* Segment devices by purpose
+* Control broadcast domains
+* Organize your network properly
+
+---
+
+# 🧩 2. The Subnet Mask Tells You *Everything*
+
+Subnet mask in decimal → boring
+Subnet mask in **binary** → *reveals the truth*
+
+Example mask (from video):
+
+```
+255.255.255.0
+```
+
+Binary:
+
+```
+11111111.11111111.11111111.00000000
+```
+
+Meaning:
+
+* **1s = Network bits** (fixed)
+* **0s = Host bits** (variable)
+
+Hosts come from the **zeros**.
+
+---
+
+# 🔥 3. Mission: Turn 1 Network → 4 Networks
+
+To create more networks, we need **more network bits**.
+
+How do we get more network bits?
+👉 We **steal (borrow) host bits**
+
+> “When you need more networks, you need more bits.”
+
+---
+
+# 🔢 4. Use the NoraTwo Chart (2ⁿ) to Determine Bit Borrowing
+
+Goal: create **4 networks**.
+
+Use powers of 2:
+
+```
+1 → 2 → 4 → 8 → 16 → …
+```
+
+* To get at least **4 networks**, we need `2^2 = 4`.
+* So we must steal **2 host bits**.
+
+**Borrowed bits = number of bits required to reach desired network count**
+
+Examples:
+
+* Need **4 networks** → 2 bits
+* Need **17 networks** → next power of 2 is 32 → 5 bits
+
+---
+
+# 🖤 5. Modify the Mask (Flip Bits to the “Dark Side”)
+
+Original mask:
+
+```
+11111111.11111111.11111111.00000000
+```
+
+Borrow 2 bits → flip first 2 host bits to 1:
+
+```
+11111111.11111111.11111111.11000000
+```
+
+Now the mask is:
+
+### **Binary mask**
+
+```
+11111111.11111111.11111111.11000000
+```
+
+### **Decimal mask**
+
+Add the first two powers in last octet:
+`128 + 64 = 192`
+
+So new subnet mask:
+
+```
+255.255.255.192
+```
+
+### **CIDR notation**
+
+Count network bits:
+
+```
+8 + 8 + 8 + 2 = 26 bits
+```
+
+New mask = **/26**
+
+---
+
+# 🚀 6. /26 Means Four Networks
+
+/24 → /26 steals **2 bits**, giving:
+
+* 2² = **4 subnets**
+* Host bits left = 6
+* Hosts → `2^6 = 64 total`, minus 2 →
+  ➡️ **62 usable hosts per subnet**
+
+---
+
+# 📏 7. Finding the Increment
+
+Increment = value of the **last network bit**.
+
+Last network bit value (in the borrowed range) = **64**.
+
+Thus each network increases by **64**.
+
+---
+
+# 📦 8. Build the Four Networks
+
+Network 1:
+
+```
+192.168.1.0     – 192.168.1.63
+```
+
+Network 2:
+
+```
+192.168.1.64    – 192.168.1.127
+```
+
+Network 3:
+
+```
+192.168.1.128   – 192.168.1.191
+```
+
+Network 4:
+
+```
+192.168.1.192   – 192.168.1.255
+```
+
+All have mask:
+
+```
+255.255.255.192  (/26)
+62 usable hosts each
+```
+
+---
+
+# 🔍 9. Host Count Formula (Review)
+
+Count host bits:
+`6`
+
+Formula:
+
+```
+Hosts = 2^(host bits) – 2
+Hosts = 2^6 – 2 = 62 usable
+```
+
+---
+
+# 🧠 10. The Four-Step Universal Subnetting Method
+
+Works for ANY address class (A/B/C):
+
+### **1. Convert the subnet mask to binary.**
+
+Find network bits & host bits.
+
+### **2. Determine number of required networks.**
+
+Use powers of 2 to find needed borrowed bits.
+
+### **3. Borrow bits → modify mask → convert back to decimal.**
+
+### **4. Use increment to build subnets.**
+
+This ALWAYS works.
+
+---
+
+# 📚 EXTRA MATERIALS
+
+(added per your request)
+
+---
+
+# 📘 CIDR Quick Reference Chart (/8 → /32)
+
+### **CIDR to Subnet Mask Table**
+
+| CIDR | Subnet Mask     | Host Bits | Usable Hosts       |
+| ---- | --------------- | --------- | ------------------ |
+| /8   | 255.0.0.0       | 24        | 16,777,214         |
+| /9   | 255.128.0.0     | 23        | 8,388,606          |
+| /10  | 255.192.0.0     | 22        | 4,194,302          |
+| /11  | 255.224.0.0     | 21        | 2,097,150          |
+| /12  | 255.240.0.0     | 20        | 1,048,574          |
+| /13  | 255.248.0.0     | 19        | 524,286            |
+| /14  | 255.252.0.0     | 18        | 262,142            |
+| /15  | 255.254.0.0     | 17        | 131,070            |
+| /16  | 255.255.0.0     | 16        | 65,534             |
+| /17  | 255.255.128.0   | 15        | 32,766             |
+| /18  | 255.255.192.0   | 14        | 16,382             |
+| /19  | 255.255.224.0   | 13        | 8,190              |
+| /20  | 255.255.240.0   | 12        | 4,094              |
+| /21  | 255.255.248.0   | 11        | 2,046              |
+| /22  | 255.255.252.0   | 10        | 1,022              |
+| /23  | 255.255.254.0   | 9         | 510                |
+| /24  | 255.255.255.0   | 8         | 254                |
+| /25  | 255.255.255.128 | 7         | 126                |
+| /26  | 255.255.255.192 | 6         | 62                 |
+| /27  | 255.255.255.224 | 5         | 30                 |
+| /28  | 255.255.255.240 | 4         | 14                 |
+| /29  | 255.255.255.248 | 3         | 6                  |
+| /30  | 255.255.255.252 | 2         | 2                  |
+| /31  | 255.255.255.254 | 1         | 0 (special cases)  |
+| /32  | 255.255.255.255 | 0         | 1 host (single IP) |
+
+---
+
+# 🔍 Visual: Network Bits vs Host Bits
+
+Example: /26
+
+```
+11111111.11111111.11111111.11000000
+|------- Network (26 bits) -------|-- Hosts (6 bits) --|
+```
+
+General rule:
+
+```
+[Network Bits = 1s][Host Bits = 0s]
+```
+
+Easy memory trick:
+
+* **More 1s = more networks, fewer hosts**
+* **More 0s = fewer networks, more hosts**
+
+---
+
+# 🔧 Visual: Borrowing Host Bits
+
+Start (/24):
+
+```
+11111111.11111111.11111111.00000000
+```
+
+Borrow 2 bits:
+
+```
+11111111.11111111.11111111.11000000
+```
+
+Hosts shrunk from 256 → 64.
+
+---
+
+# 📐 Quick Increment Table
+
+For the last octet:
+
+| New Mask | Binary | Increment |
+| -------- | ------ | --------- |
+| /25      | 128    | 128       |
+| /26      | 192    | 64        |
+| /27      | 224    | 32        |
+| /28      | 240    | 16        |
+| /29      | 248    | 8         |
+| /30      | 252    | 4         |
+| /31      | 254    | 2         |
+| /32      | 255    | 1         |
+
+---
+
+# 👨‍🏫 Extra: How to Subnet *Any Network* in Under 30 Seconds
+
+### 1. Identify original mask
+
+### 2. Determine needed networks
+
+### 3. Borrow bits (power of 2 rule)
+
+### 4. Convert mask back to decimal
+
+### 5. Increment = value of borrowed bit
+
+### 6. Build ranges
+
+Done.
+
+---
+
+# 🌟 How to get the Five-Network Homework from Chuck?
+
 </details>
 
 ## VIM (Vi Improved)
